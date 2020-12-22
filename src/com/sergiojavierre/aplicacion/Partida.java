@@ -81,7 +81,7 @@ public class Partida {
                     String message = cliente.readData();
                     System.out.println(message);
                 }
-                tablero.showTablero();
+               // tablero.showTablero();
             }
         } catch (IOException e) {
             e.printStackTrace();
