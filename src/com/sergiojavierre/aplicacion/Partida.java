@@ -29,11 +29,31 @@ public class Partida {
         }
         else{
             cliente = new Cliente();
-            cliente.startClient();
+            cliente.sendEstado(1,1);
         }
     }
 
     public void juega(){
+        try {
+            Scanner scanner = new Scanner(System.in);
+            configuraConexion();
+            while (true){
+                if(cliente != null) {
+                    cliente.sendMessage(scanner.nextLine());
+                    String dataCliente = cliente.readData();
+                    System.out.println(dataCliente);
+                }
+                else{
+                    String dataServer = servidor.getMessage();
+                    servidor.sendMessage(scanner.nextLine());
+                    System.out.println(dataServer);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        /*
         try {
             configuraConexion();
             Scanner scanner = new Scanner(System.in);
@@ -58,7 +78,7 @@ public class Partida {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        */
     }
 
     public Boolean hasFinish(){
