@@ -29,7 +29,7 @@ public class Partida {
         }
         else{
             cliente = new Cliente();
-            cliente.sendEstado(1,1);
+           // cliente.sendEstado(1,1);
         }
     }
 
@@ -44,9 +44,9 @@ public class Partida {
                     System.out.println(dataCliente);
                 }
                 else{
-                    String dataServer = servidor.getMessage();
-                    servidor.sendMessage(scanner.nextLine());
+                    String dataServer = servidor.readData();
                     System.out.println(dataServer);
+                    servidor.sendMessage(scanner.nextLine());
                 }
             }
         } catch (IOException e) {

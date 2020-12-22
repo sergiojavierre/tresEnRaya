@@ -20,9 +20,6 @@ public class Cliente extends Conexion
         }
     }
 
-    public String readData() throws IOException {
-        return din.readUTF();
-    }
 
     public void cerrarSesion(){
         try {

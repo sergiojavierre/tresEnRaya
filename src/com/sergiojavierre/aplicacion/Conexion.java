@@ -35,4 +35,9 @@ public class Conexion
         dout.writeUTF(message);
         dout.flush();
     }
+
+
+    public String readData() throws IOException {
+        return din.readUTF();
+    }
 }
