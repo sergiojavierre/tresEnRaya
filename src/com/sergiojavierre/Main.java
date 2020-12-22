@@ -1,7 +1,6 @@
 package com.sergiojavierre;
 
 import com.sergiojavierre.aplicacion.Partida;
-import com.sergiojavierre.entidades.Tablero;
 
 public class Main {
 

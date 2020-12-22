@@ -1,11 +1,7 @@
 package com.sergiojavierre.aplicacion;
 
-import com.sergiojavierre.entidades.Estado;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class Cliente extends Conexion
 {
