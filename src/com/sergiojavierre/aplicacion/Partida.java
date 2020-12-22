@@ -54,13 +54,14 @@ public class Partida {
         }
     }
 
-    private void setXY(int x, int y){
+    private Integer[] setXY(){
         Scanner scanner = new Scanner(System.in);
         System.out.print("Elige x: ");
-        x = Integer.parseInt(scanner.nextLine());
+        int x = Integer.parseInt(scanner.nextLine());
         System.out.print("Elige y: ");
-        y = Integer.parseInt(scanner.nextLine());
+        int y = Integer.parseInt(scanner.nextLine());
         tablero.setPosicion(y,x, Estado.J1);
+        return new Integer[]{x, y};
     }
 
     public void juega(){
@@ -71,11 +72,15 @@ public class Partida {
                 if(servidor!=null){
                     String message = servidor.readData();
                     System.out.println(message);
-                    setXY(x,y);
+                    Integer[] posiciones = setXY();
+                    x = posiciones[0];
+                    y = posiciones[1];
                     servidor.sendPosiciones(x,y);
                 }
                 else{
-                    setXY(x,y);
+                    Integer[] posiciones = setXY();
+                    x = posiciones[0];
+                    y = posiciones[1];
                     cliente.sendPosiciones(x,y);
                     tablero.showTablero();
                     String message = cliente.readData();
