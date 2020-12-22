@@ -11,15 +11,6 @@ public class Cliente extends Conexion
 {
     public Cliente() throws IOException {super("cliente");} //Se usa el constructor para cliente de Conexion
 
-    public void sendEstado(int x, int y){
-        try {
-            dout.writeUTF(x+";"+y);
-            dout.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     public void cerrarSesion(){
         try {

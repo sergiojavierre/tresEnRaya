@@ -33,7 +33,7 @@ public class Partida {
         }
     }
 
-    public void juega(){
+    private void chat(){
         try {
             Scanner scanner = new Scanner(System.in);
             configuraConexion();
@@ -52,33 +52,40 @@ public class Partida {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
-        /*
+    private void setXY(int x, int y){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Elige x: ");
+        x = Integer.parseInt(scanner.nextLine());
+        System.out.print("Elige y: ");
+        y = Integer.parseInt(scanner.nextLine());
+        tablero.setPosicion(y,x, Estado.J1);
+    }
+
+    public void juega(){
         try {
             configuraConexion();
-            Scanner scanner = new Scanner(System.in);
             while (!hasFinish()){
+                int x = 0, y = 0;
                 if(servidor!=null){
-                    String message = servidor.getMessage();
+                    String message = servidor.readData();
                     System.out.println(message);
-                }
-                System.out.print("Elige x: ");
-                int x = Integer.parseInt(scanner.nextLine());
-                System.out.print("Elige y: ");
-                int y = Integer.parseInt(scanner.nextLine());
-                tablero.setPosicion(y,x, Estado.J1);
-                if(servidor!=null){
+                    setXY(x,y);
                     servidor.sendPosiciones(x,y);
                 }
                 else{
-                    cliente.sendEstado(x,y);
+                    setXY(x,y);
+                    cliente.sendPosiciones(x,y);
+                    tablero.showTablero();
+                    String message = cliente.readData();
+                    System.out.println(message);
                 }
                 tablero.showTablero();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        */
     }
 
     public Boolean hasFinish(){
