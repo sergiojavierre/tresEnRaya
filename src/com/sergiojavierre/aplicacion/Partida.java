@@ -3,29 +3,56 @@ package com.sergiojavierre.aplicacion;
 import com.sergiojavierre.entidades.Estado;
 import com.sergiojavierre.entidades.Tablero;
 
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.Scanner;
 
 public class Partida {
 
     private Tablero tablero;
 
+    private Servidor servidor;
+    private Cliente cliente;
+
+
     public Partida(){
         tablero = new Tablero();
     }
 
-    public void juega(){
+    private void configuraConexion() throws IOException {
+        System.out.print("1) Servidor\n2)Cliente\nEleccion:");
         Scanner scanner = new Scanner(System.in);
-        while (!hasFinish()){
-            System.out.print("Elige x: ");
-            int x = Integer.parseInt(scanner.nextLine());
-            System.out.print("Elige y: ");
-            int y = Integer.parseInt(scanner.nextLine());
-            tablero.setPosicion(y,x, Estado.J1);
-            tablero.showTablero();
+        if(scanner.nextLine().equals("1")){
+            servidor = new Servidor();
+            servidor.startServer();
+        }
+        else{
+            cliente = new Cliente();
+            cliente.startClient();
         }
     }
 
+    public void juega(){
+        try {
+            configuraConexion();
+            Scanner scanner = new Scanner(System.in);
+            while (!hasFinish()){
+                System.out.print("Elige x: ");
+                int x = Integer.parseInt(scanner.nextLine());
+                System.out.print("Elige y: ");
+                int y = Integer.parseInt(scanner.nextLine());
+                tablero.setPosicion(y,x, Estado.J1);
+                tablero.showTablero();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public Boolean hasFinish(){
+        //faltan diagonales
         for(int i = 0; i < tablero.getSize(); i++){
             Estado estado = tablero.getPosicion(i,0);
             if(estado != Estado.VA) {
