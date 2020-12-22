@@ -38,11 +38,21 @@ public class Partida {
             configuraConexion();
             Scanner scanner = new Scanner(System.in);
             while (!hasFinish()){
+                if(servidor!=null){
+                    String message = servidor.getMessage();
+                    System.out.println(message);
+                }
                 System.out.print("Elige x: ");
                 int x = Integer.parseInt(scanner.nextLine());
                 System.out.print("Elige y: ");
                 int y = Integer.parseInt(scanner.nextLine());
                 tablero.setPosicion(y,x, Estado.J1);
+                if(servidor!=null){
+                    servidor.sendPosiciones(x,y);
+                }
+                else{
+                    cliente.sendEstado(x,y);
+                }
                 tablero.showTablero();
             }
         } catch (IOException e) {

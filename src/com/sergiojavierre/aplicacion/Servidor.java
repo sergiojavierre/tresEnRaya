@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 public class Servidor extends Conexion //Se hereda de conexión para hacer uso de los sockets y demás
 {
     public Servidor() throws IOException {super("servidor");} //Se usa el constructor para servidor de Conexion
+    private BufferedReader entrada;
 
     public void startServer()//Método para iniciar el servidor
     {
@@ -23,22 +24,17 @@ public class Servidor extends Conexion //Se hereda de conexión para hacer uso d
 
             //Se obtiene el flujo de salida del cliente para enviarle mensajes
             salidaCliente = new DataOutputStream(cs.getOutputStream());
-
+/*
             //Se le envía un mensaje al cliente usando su flujo de salida
             salidaCliente.writeUTF("Petición recibida y aceptada");
-
+*/
             //Se obtiene el flujo entrante desde el cliente
-            BufferedReader entrada = new BufferedReader(new InputStreamReader(cs.getInputStream()));
+            entrada = new BufferedReader(new InputStreamReader(cs.getInputStream()));
+/*
 
-            while((mensajeServidor = entrada.readLine()) != null) //Mientras haya mensajes desde el cliente
-            {
-                //Se muestra por pantalla el mensaje recibido
-                System.out.println(mensajeServidor);
-            }
 
             System.out.println("Fin de la conexión");
-
-            ss.close();//Se finaliza la conexión con el cliente
+*/
         }
         catch (Exception e)
         {
@@ -46,9 +42,25 @@ public class Servidor extends Conexion //Se hereda de conexión para hacer uso d
         }
     }
 
-    public void sendEstadoPosiciones(Estado estado, int x, int y){
+    public String getMessage() throws IOException {
+        while((mensajeServidor = entrada.readLine()) != null) //Mientras haya mensajes desde el cliente
+        {
+            return mensajeServidor;
+        }
+        return "empty";
+    }
+
+    public void sendPosiciones(int x, int y){
         try {
-            salidaCliente.writeUTF(x+";"+y+";"+estado);
+            salidaCliente.writeUTF(x+";"+y);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void cerrarSesion(){
+        try {
+            ss.close();//Se finaliza la conexión con el cliente
         } catch (IOException e) {
             e.printStackTrace();
         }
