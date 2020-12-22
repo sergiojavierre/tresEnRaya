@@ -30,6 +30,7 @@ public class Servidor extends Conexion //Se hereda de conexión para hacer uso d
     public void sendPosiciones(int x, int y){
         try {
             dout.writeUTF(x+";"+y);
+            dout.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }

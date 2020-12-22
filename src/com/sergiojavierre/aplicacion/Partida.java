@@ -25,7 +25,7 @@ public class Partida {
         Scanner scanner = new Scanner(System.in);
         if(scanner.nextLine().equals("1")){
             servidor = new Servidor();
-            servidor.startServer();
+            //servidor.startServer();
         }
         else{
             cliente = new Cliente();

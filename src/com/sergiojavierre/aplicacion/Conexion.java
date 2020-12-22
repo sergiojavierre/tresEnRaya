@@ -20,7 +20,7 @@ public class Conexion
         if(tipo.equalsIgnoreCase("servidor"))
         {
             ss = new ServerSocket(PUERTO);//Se crea el socket para el servidor en puerto 1234
-            cs = new Socket(); //Socket para el cliente
+            cs = ss.accept();
         }
         else
         {
@@ -33,5 +33,6 @@ public class Conexion
 
     public void sendMessage(String message) throws IOException {
         dout.writeUTF(message);
+        dout.flush();
     }
 }
